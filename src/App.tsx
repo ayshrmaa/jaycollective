@@ -7,8 +7,6 @@ import { StarLogo } from './components/StarLogo'
 import { WindowShell } from './components/WindowShell'
 import { projects, type Project } from './data/projects'
 
-const BACKGROUND_VIDEO = '/hero-bg.mp4'
-
 const bodyText: React.CSSProperties = {
   fontFamily: "'Inter',sans-serif",
   fontWeight: 400,
@@ -71,26 +69,9 @@ function App() {
         height: '100vh',
         overflow: 'hidden',
         position: 'relative',
-        background: 'white',
+        background: 'rgb(15,15,15)',
       }}
     >
-      {/* 1. Background video */}
-      <video
-        src={BACKGROUND_VIDEO}
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
-        }}
-      />
-
       <CornerFrame />
 
       <header style={archiveLabel} aria-label="Jay Collective">
