@@ -174,32 +174,32 @@ function App() {
               alignSelf: 'center',
             }}
           />
-          <p style={bodyText}>
-            {activeProject.description ??
-              `${activeProject.title} — a study in light, stillness, and the quiet edges of the landscape. Shot on location and printed in limited edition.`}
-          </p>
+          {activeProject.tagline && (
+            <p style={{ ...bodyText, fontWeight: 600, fontSize: 17, color: 'rgb(28,28,30)' }}>
+              {activeProject.tagline}
+            </p>
+          )}
+          <p style={bodyText}>{activeProject.description}</p>
         </WindowShell>
       )}
 
       {aboutOpen && (
-        <WindowShell title="Jay Collective" onClose={() => setAboutOpen(false)}>
+        <WindowShell title="About Me" onClose={() => setAboutOpen(false)}>
+          <p style={bodyText}>I'm Bradley, the founder of Jay Collective.</p>
           <p style={bodyText}>
-            Jay Collective is an archive-minded studio working between the natural and the imagined.
-            The work lingers on thresholds — where water meets shore, where silence meets motion.
-          </p>
-          <p style={bodyText}>
-            This portfolio is a living surface: drag the frames, rearrange them, and find your own
-            order in the work.
+            I love building software that people actually enjoy using. My work sits at the
+            intersection of design, psychology, and technology, with a simple goal: create products
+            that make everyday work feel easier, faster, and a little more enjoyable.
           </p>
         </WindowShell>
       )}
 
       {notesOpen && (
         <WindowShell title="Notes" onClose={() => setNotesOpen(false)}>
-          <p style={bodyText}>
-            Field notes, process fragments, and thoughts collected between sessions. New entries
-            appear here as the body of work grows.
+          <p style={{ ...bodyText, fontStyle: 'italic', fontSize: 17 }}>
+            Everything you can imagine is real.
           </p>
+          <p style={{ ...bodyText, color: 'rgb(134,134,139)' }}>— Pablo Picasso</p>
         </WindowShell>
       )}
 

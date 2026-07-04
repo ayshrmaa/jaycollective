@@ -9,7 +9,10 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, onOpen }: ProjectCardProps) {
   const { pos, onMouseDown, isDraggingRef } = useDraggable()
-  const [hover, setHover] = useState(false)
+  const [rawHover, setHover] = useState(false)
+  // Cards without a description (in stealth) aren't clickable and don't light up
+  const clickable = Boolean(project.description)
+  const hover = rawHover && clickable
 
   return (
     <div
@@ -17,7 +20,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={() => {
-        if (!isDraggingRef.current) onOpen(project)
+        if (clickable && !isDraggingRef.current) onOpen(project)
       }}
       style={{
         position: 'absolute',
@@ -25,7 +28,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
         top: `calc(${project.anchorY}% - 64px)`,
         transform: `translate(${pos.x}px, ${pos.y}px)`,
         zIndex: 2,
-        cursor: 'pointer',
+        cursor: clickable ? 'pointer' : 'inherit',
         userSelect: 'none',
         display: 'flex',
         flexDirection: 'column',

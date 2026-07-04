@@ -6,6 +6,7 @@ export interface Project {
   anchorX: number
   anchorY: number
   thumbnail: string
+  tagline?: string
   description?: string
 }
 
@@ -29,8 +30,9 @@ export const projects: Project[] = [
     anchorX: 42.75,
     anchorY: 48.5,
     thumbnail: cardLogo,
+    tagline: 'A UGC Strategist, in your pocket.',
     description:
-      'Strat is a mobile-first strategy app built for UGC creators. It brings video scanning, AI chat with Strat Cat, hook and script tools, a searchable creator library, and gamified daily progress into one place.',
+      'Strat is your all in one strategy hub for UGC creators, built from experts. Save viral content, break down why videos perform, rewrite ideas for your brand, and make content strategy simple, efficient, and actually enjoyable.',
   },
   {
     id: 2,
