@@ -82,7 +82,7 @@ function App() {
           pointerEvents: 'none',
         }}
       >
-        <FallingPattern color="#e0e0e0" blurIntensity="0.75em" />
+        <FallingPattern color="#ffffff" blurIntensity="0.2em" duration={80} />
       </div>
 
       <CornerFrame />
