@@ -3,9 +3,9 @@ import { useCallback, useRef, useState } from 'react'
 const DRAG_THRESHOLD = 5
 
 /**
- * Pointer drag-to-reposition. Stores transient drag bookkeeping in a ref so
- * mousemove handlers stay referentially stable, while exposing the resolved
- * offset as state so consumers re-render on movement.
+ * Pointer drag-to-reposition (mouse + touch). Stores transient drag bookkeeping
+ * in a ref so move handlers stay referentially stable, while exposing the
+ * resolved offset as state so consumers re-render on movement.
  */
 export function useDraggable() {
   const [pos, setPos] = useState({ x: 0, y: 0 })
@@ -13,7 +13,7 @@ export function useDraggable() {
   const drag = useRef({ dragging: false, sx: 0, sy: 0, ox: 0, oy: 0, cx: 0, cy: 0 })
   const isDraggingRef = useRef(false)
 
-  const onMouseMove = useCallback((e: MouseEvent) => {
+  const onPointerMove = useCallback((e: PointerEvent) => {
     const d = drag.current
     if (!d.dragging) return
     const dx = e.clientX - d.sx
@@ -24,14 +24,15 @@ export function useDraggable() {
     setPos({ x: d.cx, y: d.cy })
   }, [])
 
-  const onMouseUp = useCallback(() => {
+  const onPointerUp = useCallback(() => {
     drag.current.dragging = false
-    window.removeEventListener('mousemove', onMouseMove)
-    window.removeEventListener('mouseup', onMouseUp)
-  }, [onMouseMove])
+    window.removeEventListener('pointermove', onPointerMove)
+    window.removeEventListener('pointerup', onPointerUp)
+    window.removeEventListener('pointercancel', onPointerUp)
+  }, [onPointerMove])
 
   const onMouseDown = useCallback(
-    (e: React.MouseEvent) => {
+    (e: React.PointerEvent) => {
       const d = drag.current
       d.dragging = true
       d.sx = e.clientX
@@ -39,10 +40,11 @@ export function useDraggable() {
       d.ox = d.cx
       d.oy = d.cy
       isDraggingRef.current = false
-      window.addEventListener('mousemove', onMouseMove)
-      window.addEventListener('mouseup', onMouseUp)
+      window.addEventListener('pointermove', onPointerMove)
+      window.addEventListener('pointerup', onPointerUp)
+      window.addEventListener('pointercancel', onPointerUp)
     },
-    [onMouseMove, onMouseUp],
+    [onPointerMove, onPointerUp],
   )
 
   return { pos, onMouseDown, isDraggingRef }

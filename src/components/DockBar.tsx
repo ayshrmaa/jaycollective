@@ -1,3 +1,4 @@
+import { useIsMobile } from '../hooks/useIsMobile'
 import { DockIcon } from './DockIcon'
 
 interface DockBarProps {
@@ -25,20 +26,22 @@ const DINO_ICON =
   )
 
 export function DockBar({ onOpenAbout, onOpenNotes, onOpenGame }: DockBarProps) {
+  const isMobile = useIsMobile()
+
   return (
     <div
       style={{
         position: 'absolute',
-        bottom: 64,
+        bottom: isMobile ? 40 : 64,
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 4,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 16,
-        padding: 12,
-        borderRadius: 24,
+        gap: isMobile ? 10 : 16,
+        padding: isMobile ? 10 : 12,
+        borderRadius: isMobile ? 20 : 24,
         background: 'rgba(255,255,255,0.1)',
         border: '1px solid rgba(255,255,255,0.2)',
         backdropFilter: 'blur(5px)',
@@ -55,7 +58,7 @@ export function DockBar({ onOpenAbout, onOpenNotes, onOpenGame }: DockBarProps) 
       <div
         style={{
           width: 1,
-          height: 48,
+          height: isMobile ? 40 : 48,
           background: 'rgba(255,255,255,0.2)',
           borderRadius: 64,
         }}

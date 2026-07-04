@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { useDraggable } from '../hooks/useDraggable'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 interface WindowShellProps {
   title: string
@@ -13,6 +14,7 @@ const TRAFFIC_LIGHTS = ['rgb(253,93,92)', 'rgb(250,201,0)', 'rgb(52,199,90)']
 export function WindowShell({ title, wide, onClose, children }: WindowShellProps) {
   const [shown, setShown] = useState(false)
   const { pos, onMouseDown } = useDraggable()
+  const isMobile = useIsMobile()
 
   // Spring-in: toggle on next frame so the transition runs from the mounted state.
   useEffect(() => {
@@ -45,7 +47,7 @@ export function WindowShell({ title, wide, onClose, children }: WindowShellProps
         <div
           style={{
             transform: `translate(${pos.x}px, ${pos.y}px)`,
-            width: wide ? '70vw' : '60vw',
+            width: isMobile ? '92vw' : wide ? '70vw' : '60vw',
             maxWidth: wide ? 840 : 720,
             maxHeight: '70vh',
             borderRadius: 24,
@@ -58,13 +60,14 @@ export function WindowShell({ title, wide, onClose, children }: WindowShellProps
         >
           {/* Title bar (draggable) */}
           <div
-            onMouseDown={onMouseDown}
+            onPointerDown={onMouseDown}
             style={{
               height: 40,
               flexShrink: 0,
               padding: '0 16px',
               borderBottom: '1px solid rgb(229,229,234)',
               cursor: 'grab',
+              touchAction: 'none',
               display: 'flex',
               alignItems: 'center',
               gap: 12,
@@ -74,7 +77,7 @@ export function WindowShell({ title, wide, onClose, children }: WindowShellProps
               {TRAFFIC_LIGHTS.map((color) => (
                 <div
                   key={color}
-                  onMouseDown={(e) => e.stopPropagation()}
+                  onPointerDown={(e) => e.stopPropagation()}
                   onClick={onClose}
                   style={{
                     width: 12,

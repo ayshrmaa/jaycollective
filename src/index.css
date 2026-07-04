@@ -14,6 +14,12 @@ body {
   cursor: crosshair;
 }
 
+/* Full viewport height that tracks iOS Safari's collapsing URL bar */
+.app-root {
+  height: 100vh;
+  height: 100dvh;
+}
+
 @keyframes springIn {
   0% {
     opacity: 0;

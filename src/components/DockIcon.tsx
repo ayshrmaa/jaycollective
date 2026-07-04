@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 interface DockIconProps {
   label: string
@@ -9,12 +10,13 @@ interface DockIconProps {
 
 export function DockIcon({ label, icon, onClick, href }: DockIconProps) {
   const [hover, setHover] = useState(false)
+  const isMobile = useIsMobile()
 
   const button = (
     <div
       style={{
-        width: 48,
-        height: 48,
+        width: isMobile ? 40 : 48,
+        height: isMobile ? 40 : 48,
         borderRadius: '28%',
         overflow: 'hidden',
         transform: hover ? 'scale(1.12)' : 'scale(1)',

@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import type { Project } from '../data/projects'
+import { mobileAnchors, type Project } from '../data/projects'
 import { useDraggable } from '../hooks/useDraggable'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 interface ProjectCardProps {
   project: Project
@@ -10,13 +11,20 @@ interface ProjectCardProps {
 export function ProjectCard({ project, onOpen }: ProjectCardProps) {
   const { pos, onMouseDown, isDraggingRef } = useDraggable()
   const [rawHover, setHover] = useState(false)
+  const isMobile = useIsMobile()
   // Cards without a description (in stealth) aren't clickable and don't light up
   const clickable = Boolean(project.description)
   const hover = rawHover && clickable
 
+  const anchor = isMobile
+    ? (mobileAnchors[project.id] ?? { x: project.anchorX, y: project.anchorY })
+    : { x: project.anchorX, y: project.anchorY }
+  const thumbWidth = isMobile ? 60 : 80
+  const halfWidth = isMobile ? 42 : 52
+
   return (
     <div
-      onMouseDown={onMouseDown}
+      onPointerDown={onMouseDown}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={() => {
@@ -24,12 +32,13 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
       }}
       style={{
         position: 'absolute',
-        left: `calc(${project.anchorX}% - 52px)`,
-        top: `calc(${project.anchorY}% - 64px)`,
+        left: `calc(${anchor.x}% - ${halfWidth}px)`,
+        top: `calc(${anchor.y}% - 64px)`,
         transform: `translate(${pos.x}px, ${pos.y}px)`,
         zIndex: 2,
         cursor: clickable ? 'pointer' : 'inherit',
         userSelect: 'none',
+        touchAction: 'none',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -50,7 +59,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
           alt={project.title}
           draggable={false}
           style={{
-            width: 80,
+            width: thumbWidth,
             height: 'auto',
             borderRadius: 8,
             border: '1px solid rgba(255,255,255,0.2)',
@@ -71,7 +80,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
           style={{
             fontFamily: "'Inter',sans-serif",
             fontWeight: 400,
-            fontSize: 16,
+            fontSize: isMobile ? 14 : 16,
             lineHeight: '1.4em',
             letterSpacing: '-0.04em',
             color: 'rgb(247,247,247)',

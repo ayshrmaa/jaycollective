@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useIsMobile } from './hooks/useIsMobile'
 import { CornerFrame } from './components/CornerFrame'
 import { DinoGame } from './components/DinoGame'
 import { DockBar } from './components/DockBar'
@@ -58,6 +59,7 @@ const registeredMark: React.CSSProperties = {
 }
 
 function App() {
+  const isMobile = useIsMobile()
   const [activeProject, setActiveProject] = useState<Project | null>(null)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [notesOpen, setNotesOpen] = useState(false)
@@ -65,9 +67,9 @@ function App() {
 
   return (
     <div
+      className="app-root"
       style={{
         width: '100%',
-        height: '100vh',
         overflow: 'hidden',
         position: 'relative',
         background: 'rgb(15,15,15)',
@@ -87,7 +89,10 @@ function App() {
 
       <CornerFrame />
 
-      <header style={archiveLabel} aria-label="Jay Collective">
+      <header
+        style={{ ...archiveLabel, top: isMobile ? 64 : 32 }}
+        aria-label="Jay Collective"
+      >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <span style={archiveTitle}>
             JAY

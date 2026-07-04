@@ -10,6 +10,16 @@ export interface Project {
   description?: string
 }
 
+// Tighter hand-placed layout for phones — desktop anchors crowd at <768px.
+export const mobileAnchors: Record<number, { x: number; y: number }> = {
+  1: { x: 32, y: 68 },
+  2: { x: 24, y: 30 },
+  3: { x: 24, y: 49 },
+  4: { x: 72, y: 68 },
+  5: { x: 74, y: 30 },
+  6: { x: 76, y: 49 },
+}
+
 // "Coming soon" placeholder — red italic serif on black (inline SVG, no network).
 const PLACEHOLDER =
   'data:image/svg+xml;utf8,' +
