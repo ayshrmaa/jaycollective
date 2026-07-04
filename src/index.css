@@ -11,6 +11,7 @@ body {
   font-family: 'Inter', sans-serif;
   background: white;
   overflow: hidden;
+  cursor: crosshair;
 }
 
 @keyframes springIn {

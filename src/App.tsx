@@ -88,11 +88,24 @@ function App() {
       <CornerFrame />
 
       <header style={archiveLabel} aria-label="Jay Collective">
-        <span style={archiveTitle}>
-          JAY
-          <br />
-          COLLECTIVE
-        </span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <span style={archiveTitle}>
+            JAY
+            <br />
+            COLLECTIVE
+          </span>
+          <span
+            style={{
+              fontFamily: "'Inter',sans-serif",
+              fontWeight: 400,
+              fontSize: 'clamp(14px, 1.4vw, 19px)',
+              letterSpacing: '-0.02em',
+              color: 'rgba(255,255,255,0.75)',
+            }}
+          >
+            A collection of premium apps
+          </span>
+        </div>
         <span style={registeredMark} aria-hidden="true">
           R
         </span>
