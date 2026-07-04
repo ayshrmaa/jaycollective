@@ -3,6 +3,7 @@ import { CornerFrame } from './components/CornerFrame'
 import { DinoGame } from './components/DinoGame'
 import { DockBar } from './components/DockBar'
 import { ProjectCard } from './components/ProjectCard'
+import { StarLogo } from './components/StarLogo'
 import { WindowShell } from './components/WindowShell'
 import { projects, type Project } from './data/projects'
 
@@ -130,6 +131,9 @@ function App() {
           pointerEvents: 'none',
         }}
       />
+
+      {/* Interactive 3D star (grab to spin) */}
+      <StarLogo />
 
       {/* 4. Draggable project cards */}
       {projects.map((project) => (
