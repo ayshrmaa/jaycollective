@@ -80,11 +80,9 @@ function App() {
           inset: 0,
           zIndex: 0,
           pointerEvents: 'none',
-          maskImage: 'radial-gradient(ellipse at center, transparent, black)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, transparent, black)',
         }}
       >
-        <FallingPattern />
+        <FallingPattern color="#e0e0e0" blurIntensity="0.75em" />
       </div>
 
       <CornerFrame />
