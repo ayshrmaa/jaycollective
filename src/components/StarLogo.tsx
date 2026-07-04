@@ -18,7 +18,8 @@ export function StarLogo() {
     // canonical API) so they reliably land.
     modelViewer.setAttribute('src', '/star.glb')
     modelViewer.setAttribute('alt', 'JayCollective star logo')
-    modelViewer.setAttribute('orientation', '0deg 0deg 90deg')
+    // pitch +45° vs 10x's original so the star reads upright (tips N/S/E/W)
+    modelViewer.setAttribute('orientation', '0deg 45deg 90deg')
     modelViewer.setAttribute('exposure', '1')
     modelViewer.draggable = false
     modelViewer.setAttribute('draggable', 'false')
