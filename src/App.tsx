@@ -5,6 +5,7 @@ import { DockBar } from './components/DockBar'
 import { ProjectCard } from './components/ProjectCard'
 import { StarLogo } from './components/StarLogo'
 import { WindowShell } from './components/WindowShell'
+import { FallingPattern } from './components/ui/falling-pattern'
 import { projects, type Project } from './data/projects'
 
 const bodyText: React.CSSProperties = {
@@ -72,6 +73,20 @@ function App() {
         background: 'rgb(15,15,15)',
       }}
     >
+      {/* 1. Falling-pattern background (behind everything) */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: 'none',
+          maskImage: 'radial-gradient(ellipse at center, transparent, black)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, transparent, black)',
+        }}
+      >
+        <FallingPattern />
+      </div>
+
       <CornerFrame />
 
       <header style={archiveLabel} aria-label="Jay Collective">
